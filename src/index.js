@@ -46,11 +46,11 @@ function createApp () {
   canvas.style.display = 'none';
   let clicked = false;
   const begin = ev => {
+    if (clicked) return;
     resize();
     window.muteC.style.display = 'block';
     window.W.style.display = 'none';
     window.R.style.display = 'block';
-    if (clicked) return;
     clicked = true;
     if (ev) ev.preventDefault();
     audio._MIN_resume();
