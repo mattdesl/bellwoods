@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+
+  <title>Bellwoods</title>
+  <meta name="description" content="An art game for mobile & desktop. Sail your kite through endless fields of colour and sound, trying to discover new worlds.">
+  <meta name="image" content="https://bellwoods.xyz/t.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Bellwoods">
+  <meta name="twitter:description" content="An art game for mobile & desktop. Sail your kite through endless fields of colour and sound, trying to discover new worlds.">
+  <meta name="twitter:site" content="@mattdesl">
+  <meta name="twitter:image:src" content="https://bellwoods.xyz/t.png">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111422549-4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-111422549-4',{linker:{domains:['bellwoods.xyz','js13kgames.com']}});</script>
+
+  <link rel="stylesheet" href="bundle.css">
+</head>
+<body onload="window.W.style.opacity='';window.W.className='O';">
+  <canvas id='canvas'></canvas>
+  <div id='muteC'><div id='mute'>mute</div></div>
+  <div id='R'></div>
+  <div id='W' class='K' style='opacity: 0;'>
+    <main id='A'>
+      <h1>bellwoods</h1>
+      <div id='X'>
+        <svg width="32" height="72" viewBox="0 -6 70 82">
+          <g stroke="#fff" fill="none">
+            <path d="M32,0 L46.4,21 L32,64 L17.6,21 Z" stroke-width="3px" />
+            <path d="M17.6,21 L46.4,21 M32,0 L32,64 M32,64 Q32,80 40,82" stroke-width="1px" />
+          </g>
+        </svg>
+      </div>
+      <div>over the tall grass</div>
+      <div>following birds, chasing wind</div>
+      <div>in search of color</div>
+      <p id='S'>start</p>
+      <div id='C'>
+        <div>Made by Matt DesLauriers</div>
+        <div>with the contribution of Mélissa Hernandez</div>
+      </div>
+    </main>
+    <main id='E'>
+      <div>There was a JavaScript error. Make sure you're using a recent version of Chrome, FireFox or Safari.</div>
+    </main>
+  </div>
+  <!-- Handle error -->
+  <script>window.onerror=function(msg){['E','A','R','canvas','muteC'].forEach(function (key, i) {window[key].style.display=i===0?'flex':'none';});};</script>
+  <script src="bundle.js"></script>
+</body>
+</html>

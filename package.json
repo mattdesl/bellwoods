@@ -1,0 +1,78 @@
+{
+  "name": "bellwoods",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl"
+  },
+  "dependencies": {
+    "browser-pack-flat": "^3.1.0",
+    "browserify": "^16.2.2",
+    "bundle-collapser": "^1.3.0",
+    "camera-project": "^1.0.2",
+    "camera-unproject": "^1.0.1",
+    "clean-css": "^4.2.1",
+    "common-shakeify": "^0.5.1",
+    "concat-stream": "^1.6.2",
+    "duplexer2": "^0.1.4",
+    "execa": "^1.0.0",
+    "freeverb": "^1.1.2",
+    "gl-mat4": "^1.2.0",
+    "gl-vec3": "^1.1.3",
+    "gl-vec4": "^1.0.1",
+    "html-minifier": "^3.5.20",
+    "jscrush": "0.0.0",
+    "nice-color-palettes": "^2.0.0",
+    "perspective-camera": "^2.0.1",
+    "pretty-bytes": "^5.1.0",
+    "primitive-box": "^1.0.0",
+    "primitive-cube": "^2.0.1",
+    "regpack": "^5.0.1",
+    "rimraf": "^2.6.2",
+    "rollup-plugin-bundle-size": "^1.0.2",
+    "rollup-plugin-execute": "^1.0.0",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-terser": "^1.0.1",
+    "rollupify": "^0.5.0",
+    "seedrandom": "^2.4.4",
+    "simplex-noise": "^2.4.0",
+    "soundbank-reverb": "^1.1.2",
+    "touches": "^1.2.2"
+  },
+  "semistandard": {
+    "globals": [
+      "context"
+    ]
+  },
+  "devDependencies": {
+    "budo": "^11.3.2",
+    "google-closure-compiler": "^20180805.0.0",
+    "rollup": "^0.65.0",
+    "rollup-plugin-memory": "^3.0.0",
+    "rollup-plugin-serve": "^0.4.2",
+    "surge": "^0.20.1",
+    "terser": "^3.8.1",
+    "through2": "^2.0.3",
+    "tinyify": "^2.4.3"
+  },
+  "scripts": {
+    "deploy": "surge -p public/ -d fields.surge.sh",
+    "build": "node tools/js13k --build",
+    "zip": "node tools/js13k --build --zip",
+    "test": "rollup rollup --watch --config rollup.config.js src/index-es6.js",
+    "start": "node tools/js13k"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattdesl/bellwoods.git"
+  },
+  "homepage": "https://github.com/mattdesl/bellwoods",
+  "bugs": {
+    "url": "https://github.com/mattdesl/bellwoods/issues"
+  }
+}
