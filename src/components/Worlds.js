@@ -25,7 +25,7 @@ export default function Worlds (initialId = STARTID) {
     'frequent flyer',
     'world explorer',
     'treetop surfer',
-    'golden eagle',
+    'high flyer',
     'wind catcher'
   ];
 
@@ -35,9 +35,9 @@ export default function Worlds (initialId = STARTID) {
 
   const EXP = 1.53;
 
-  // ranks.forEach((r, i) => {
-  //   console.log(~~Math.pow(i, EXP), r);
-  // });
+  ranks.forEach((r, i) => {
+    console.log(~~Math.pow(i, EXP), r);
+  });
 
   const api = {
     current: null,
