@@ -13,7 +13,7 @@ The source code is here for educational purposes only. You are not licensed to c
 ## Gameplay Video
 
 - *Vimeo:* https://vimeo.com/289786573
-- *MP4 Download:* 
+- *MP4 Download:* https://www.dropbox.com/s/sx84b42xzbycv1c/Bellwoods-Gameplay.mp4?dl=0
 
 ## Media
 

@@ -58,7 +58,7 @@ function createApp () {
     loop.start();
     canvas.style.display = '';
   };
-  // begin();
+
   window.S.addEventListener('click', begin, { passive: false });
   window.S.addEventListener('touchend', audio._MIN_resume, { passive: false });
   window.S.addEventListener('touchstart', begin, { passive: false });
