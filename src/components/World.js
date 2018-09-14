@@ -46,8 +46,8 @@ export default function World (worlds, id = 0, first) {
   let bgLight = dark ? (random.range(0.2, 0.3)) : 0.75;
 
   let offset = first || [
-    (random.next() * 2 - 1) * 0.25,
-    (random.next() * 2 - 1) * 0.25
+    (random.next() * 2 - 1) * 0.5,
+    (random.next() * 2 - 1) * 0.5
   ];
 
   let empty = worlds.depth >= 15 && !hasHitEmpty && random.next() > 0.1;
