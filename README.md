@@ -38,3 +38,9 @@ The game is inspired by [haiku](https://en.wikipedia.org/wiki/Haiku) and the des
 > *over the tall grass*  
 > *following birds, chasing wind*  
 > *in search of color*  
+
+---
+
+The following copyright applies to all assets, artwork, creative direction, concept, title, text, code, and software within this repository.
+
+© 2018 Matt DesLauriers All Rights Reserved
