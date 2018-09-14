@@ -17,5 +17,12 @@ The source code is here for educational purposes only. You are not licensed to c
 
 ## Media
 
-Some images if you'd like to link to the game:
+Thumbnail Crop:
 
+- https://raw.githubusercontent.com/mattdesl/bellwoods/master/press/Thumb.png
+
+A couple other images if you'd like to link to the game:
+
+- https://raw.githubusercontent.com/mattdesl/bellwoods/master/press/1.png
+- https://raw.githubusercontent.com/mattdesl/bellwoods/master/press/2.png
+- https://raw.githubusercontent.com/mattdesl/bellwoods/master/press/3.png
