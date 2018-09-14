@@ -48,9 +48,9 @@ function createApp () {
   const begin = ev => {
     if (clicked) return;
     resize();
-    // window.muteC.style.display = 'block';
+    window.muteC.style.display = 'block';
     window.W.style.display = 'none';
-    // window.R.style.display = 'block';
+    window.R.style.display = 'block';
     clicked = true;
     if (ev) ev.preventDefault();
     audio._MIN_resume();
@@ -58,7 +58,7 @@ function createApp () {
     loop.start();
     canvas.style.display = '';
   };
-  begin();
+  // begin();
   window.S.addEventListener('click', begin, { passive: false });
   window.S.addEventListener('touchend', audio._MIN_resume, { passive: false });
   window.S.addEventListener('touchstart', begin, { passive: false });
