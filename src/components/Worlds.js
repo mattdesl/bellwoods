@@ -92,7 +92,7 @@ export default function Worlds (initialId = STARTID) {
       });
     }
   };
-  const world = World(this, 0.05, firstOffset);
+  const world = World(api, 0.05, firstOffset);
   world.id = initialId;
   world._MIN_numChildren = 1;
   api.enter({ world, explored: false, tail: false, offset: [ 0, 0 ] });
