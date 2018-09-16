@@ -36,9 +36,9 @@ function createApp () {
 
   let width, height, scene, loop;
   resize(); // set initial size first
-  scene = createScene(context, audio);
+  scene = createScene(context, audio, save);
 
-  const mouse = [ width / 2, height / 2 ];
+  const mouse = [ -width / 2, -height / 2 ];
   let isMouseDown = false;
   loop = createLoop(render, step, adaptive);
   step(0, 0.00001);
@@ -48,20 +48,20 @@ function createApp () {
   const begin = ev => {
     if (clicked) return;
     resize();
-    window.muteC.style.display = 'block';
+    // window.muteC.style.display = 'block';
     window.W.style.display = 'none';
-    window.R.style.display = 'block';
+    // window.R.style.display = 'block';
     clicked = true;
     if (ev) ev.preventDefault();
     audio._MIN_resume();
-    createMouse();
+    // createMouse();
     loop.start();
     canvas.style.display = '';
   };
-  window.S.addEventListener('click', begin, { passive: false });
-  window.S.addEventListener('touchend', audio._MIN_resume, { passive: false });
-  window.S.addEventListener('touchstart', begin, { passive: false });
-  // begin();
+  // window.S.addEventListener('click', begin, { passive: false });
+  // window.S.addEventListener('touchend', audio._MIN_resume, { passive: false });
+  // window.S.addEventListener('touchstart', begin, { passive: false });
+  begin();
   // For whatever reason latest FF doesn't trigger mousemove
   // after mousedown events unless you cancel drag
   window.ondragstart = () => false;
@@ -74,17 +74,17 @@ function createApp () {
   window.addEventListener('mousemove', mousemove);
   window.addEventListener('touchmove', touchmove);
 
-  function fit () {
-    width = window.innerWidth;
-    height = window.innerHeight;
+  function fit (w = window.innerWidth, h = window.innerHeight) {
+    width = w;
+    height = h;
     canvas.width = width * pixelRatio;
     canvas.height = height * pixelRatio;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
   }
 
-  function resize () {
-    fit();
+  function resize (w, h) {
+    fit(w, h);
     if (loop) render(loop.elapsed);
   }
 
@@ -117,13 +117,13 @@ function createApp () {
   }
 
   function touchmove (ev) {
-    mouse[0] = ev.changedTouches[0].clientX;
-    mouse[1] = height - ev.changedTouches[0].clientY - 1;
+    // mouse[0] = ev.changedTouches[0].clientX;
+    // mouse[1] = height - ev.changedTouches[0].clientY - 1;
   }
   
   function mousemove (ev) {
-    mouse[0] = ev.clientX;
-    mouse[1] = height - ev.clientY - 1;
+    // mouse[0] = ev.clientX;
+    // mouse[1] = height - ev.clientY - 1;
   }
 
   function createMouse () {
@@ -148,6 +148,45 @@ function createApp () {
     function mouseup () {
       isMouseDown = false;
     }
+  }
+
+  function save () {
+    const res = 2;
+    resize(1280 * res, 720 * res);
+    const uri = canvas.toDataURL('image/png');
+    resize();
+    saveDataURI(defaultFile('.png'), uri);
+  }
+
+  function dataURIToBlob (dataURI) {
+    const binStr = window.atob(dataURI.split(',')[1]);
+    const len = binStr.length;
+    const arr = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+      arr[i] = binStr.charCodeAt(i);
+    }
+    return new window.Blob([arr]);
+  }
+
+  function saveDataURI (name, dataURI) {
+    const blob = dataURIToBlob(dataURI);
+
+    // force download
+    const link = document.createElement('a');
+    link.download = name;
+    link.href = window.URL.createObjectURL(blob);
+    link.onclick = () => {
+      process.nextTick(() => {
+        window.URL.revokeObjectURL(blob);
+        link.removeAttribute('href');
+      });
+    };
+    link.click();
+  }
+
+  function defaultFile (ext) {
+    const str = `${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}${ext}`;
+    return str.replace(/\//g, '-').replace(/:/g, '.');
   }
 }
 
@@ -191,3 +230,4 @@ function createLoop (render, step, adaptive, fps = 60) {
     render(loop.elapsed);
   }
 }
+

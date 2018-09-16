@@ -106,6 +106,7 @@ export default function Controller (camera, terrain) {
 
       // camera.target === controller.position
       vec3.copy(camera.target, position);
+      camera.target[1] += -0.25;
 
       // Rotate a bit based on mouse X position
       spin = damp(spin, (mouse[0] / width * 2 - 1), 1, dt);

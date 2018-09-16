@@ -7,7 +7,11 @@ import Worlds from './components/Worlds';
 import { ease, clamp01 } from './math';
 import { array, vec3, noise } from './util';
 
-export default function (context, audio) {
+// const staticChar = require('./char.json');
+
+let staticChar;
+staticChar = require('./char.json')
+export default function (context, audio, save) {
   const worlds = Worlds();
   let currentFloweringWorld = worlds.current;
 
@@ -27,6 +31,24 @@ export default function (context, audio) {
   const controller = Controller(camera, terrain);
   const character = Character(camera, terrain, controller);
   const PORTAL_OFF = [ 0, 1, 0 ];
+
+  window.addEventListener('keydown', ev => {
+    if (ev.keyCode === 32) {
+      window.temp = JSON.parse(JSON.stringify(character))
+      if (staticChar != null) staticChar = null;
+      else staticChar = window.temp;
+    } else if (ev.key === 's' && ev.metaKey) {
+      ev.preventDefault();
+      save();
+    } else if (ev.key === 'n') {
+      console.log('next', worlds.next)
+      worlds.next();
+      noise._MIN_reset(worlds.current.seed);
+      terrain.reset(worlds.current.seed, worlds.current);
+      currentFloweringWorld = worlds.current;
+      restyle();
+    }
+  }, { passive: false })
 
   let transitionTime = 0;
   let transitioning = -1;
@@ -147,19 +169,19 @@ export default function (context, audio) {
       if (canEnter && hit) {
         // If we haven't stepped on the portal yet, enter it
         if (!portalUnderPlayer || portalUnderPlayer !== portal) {
-          isIgnoreTime = 0;
-          worlds.enter(portal);
-          didEnterAny = true;
-          firstTransition = false;
-          // audio.note();
+          // isIgnoreTime = 0;
+          // worlds.enter(portal);
+          // didEnterAny = true;
+          // firstTransition = false;
+          // // audio.note();
 
-          audio._MIN_transition();
-          // const { note, octave } = audio.note();
-          // console.log(`Playing ${note}${octave + 4}`);
-          // TODO: gotta fix portal stepping..
-          // console.log('entering world');
-          transitioning = 1;
-          transitionTime = 0;
+          // audio._MIN_transition();
+          // // const { note, octave } = audio.note();
+          // // console.log(`Playing ${note}${octave + 4}`);
+          // // TODO: gotta fix portal stepping..
+          // // console.log('entering world');
+          // transitioning = 1;
+          // transitionTime = 0;
         }
         // 
         // if (worlds.collide(portal)) {
@@ -243,20 +265,20 @@ export default function (context, audio) {
         if (radius >= 0.0001) {
           const pos = camera.project(p.position, tmp01);
           context.strokeStyle = p.color//currentFloweringWorld.user;
-          painter._MIN_circle(pos, radius);
-          context.stroke();
+          // painter._MIN_circle(pos, radius);
+          // context.stroke();
         }
       }
     }
     context.globalAlpha = 1;
 
-    painter.kite(camera, character, controller, terrain, elapsed, initialFade);
+    painter.kite(camera, staticChar || character, controller, terrain, elapsed, initialFade);
 
     worlds.portals.forEach((portal, i) => {
       const butterfly = worlds.butterflies[i];
       const xyzPos = portal._position;
-      painter.portal(xyzPos, portal.explored, portal.world.background, curPortalSize, initialFade);
-      painter.butterfly(butterfly, portal.world.background);
+      // painter.portal(xyzPos, portal.explored, portal.world.background, curPortalSize, initialFade);
+      // painter.butterfly(butterfly, portal.world.background);
     });
   }
 
