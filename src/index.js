@@ -54,7 +54,7 @@ function createApp () {
     clicked = true;
     if (ev) ev.preventDefault();
     audio._MIN_resume();
-    // createMouse();
+    createMouse();
     loop.start();
     canvas.style.display = '';
   };
@@ -77,13 +77,13 @@ function createApp () {
   function fit (w = window.innerWidth, h = window.innerHeight) {
     width = w;
     height = h;
-    canvas.width = width * pixelRatio;
-    canvas.height = height * pixelRatio;
+    canvas.width = ~~(width * pixelRatio);
+    canvas.height = ~~(height * pixelRatio);
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
   }
 
-  function resize (w, h) {
+  function resize (w = window.innerWidth, h = window.innerHeight) {
     fit(w, h);
     if (loop) render(loop.elapsed);
   }
@@ -129,7 +129,6 @@ function createApp () {
   function createMouse () {
     // Add all events
     const eventMap = {
-      resize,
       mouseup,
       mousedown,
       touchend: mouseup,
@@ -138,22 +137,27 @@ function createApp () {
     Object.keys(eventMap).forEach(key => {
       window.addEventListener(key, eventMap[key]);
     });
+    window.addEventListener('resize', () => resize());
 
     function mousedown (ev) {
-      if (ev.target.id==='mute') return;
-      isMouseDown = true;
-      audio._MIN_resume();
+      // if (ev.target.id==='mute') return;
+      // isMouseDown = true;
+      // audio._MIN_resume();
     }
 
     function mouseup () {
-      isMouseDown = false;
+      // isMouseDown = false;
     }
   }
 
   function save () {
-    const res = 2;
-    resize(1280 * res, 720 * res);
+    const oldPixelRatio = pixelRatio;
+    pixelRatio = 1;
+    resize(1280, 720);
+    step(loop.elapsed, 0.00001);
+    render();
     const uri = canvas.toDataURL('image/png');
+    pixelRatio = oldPixelRatio;
     resize();
     saveDataURI(defaultFile('.png'), uri);
   }

@@ -50,7 +50,7 @@ export default function World (worlds, id = 0, first) {
     (random.next() * 2 - 1) * 0.5
   ];
 
-  let empty = worlds.depth >= 15 && !hasHitEmpty && random.next() > 0.1;
+  let empty = !hasHitEmpty && random.next() > 0.1;
   let flowers = random.next() > 0.2;
 
   if (empty) {
@@ -69,7 +69,7 @@ export default function World (worlds, id = 0, first) {
 
   let lines = hsl(hue + 0.0, pS * chroma, lineLight);
   let background = hsl(hue, bgSat, bgLight);
-  const blackAndWhite = worlds.explored >= 5 && random.next() < 0.025;
+  const blackAndWhite = random.next() < 0.025;
   const night = blackAndWhite && random.next() < 0.5;
   let AB = ['white', 'black'];
   let user = AB[0];
