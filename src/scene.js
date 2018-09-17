@@ -57,7 +57,7 @@ export default function (context, audio) {
     return firstTransition ? 1 : transitionDuration;
   }
 
-  function step (elapsed, dt, width, height, mouse, mouseDown) {
+  function _MIN_step (elapsed, dt, width, height, mouse, mouseDown) {
     initialTime += dt;
     const hypot = Math.sqrt(width * width + height * height);
     curPortalSize = Math.max(12, (hypot / 1280) * portalRadiusPx);
@@ -117,8 +117,8 @@ export default function (context, audio) {
     let hitAny = false;
     const kitePos2D = camera.project(character._MIN_origin, tmp01);
 
-    for (let i = 0; i < worlds.portals.length; i++) {
-      const portal = worlds.portals[i];
+    for (let i = 0; i < worlds._MIN_portals.length; i++) {
+      const portal = worlds._MIN_portals[i];
       const xzPos = terrain.getXZWorldPosition(portal.offset);
       portal._updated = true;
       portal._position = vec3.add(portal._position || [], xzPos, PORTAL_OFF);
@@ -131,7 +131,7 @@ export default function (context, audio) {
       // painter.point(xyzPos, config.user, 12);
       // painter.point(xyzPos, portal.world.background, 10);
 
-      const butterfly = worlds.butterflies[i];
+      const butterfly = worlds._MIN_butterflies[i];
       butterfly.update(xyzPos, character, camera, elapsed, dt);
 
       // painter.marker(xzPos, threshold, portal.world.background, camera, character, controller, terrain, elapsed);
@@ -183,7 +183,7 @@ export default function (context, audio) {
     return null;
   }
 
-  function render (elapsed, width, height) {
+  function _MIN_render (elapsed, width, height) {
     let transitionDuration = currentTransitionDuration();
     const initialFade = Math.min(1, initialTime / 1);
 
@@ -252,8 +252,8 @@ export default function (context, audio) {
 
     painter.kite(camera, character, controller, terrain, elapsed, initialFade);
 
-    worlds.portals.forEach((portal, i) => {
-      const butterfly = worlds.butterflies[i];
+    worlds._MIN_portals.forEach((portal, i) => {
+      const butterfly = worlds._MIN_butterflies[i];
       const xyzPos = portal._position;
       painter.portal(xyzPos, portal.explored, portal.world.background, curPortalSize, initialFade);
       painter.butterfly(butterfly, portal.world.background);
@@ -329,8 +329,8 @@ export default function (context, audio) {
   }
 
   return {
-    render,
-    step
+    _MIN_render,
+    _MIN_step
   };
 
   // function ease2 (t) {

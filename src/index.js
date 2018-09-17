@@ -48,9 +48,12 @@ function createApp () {
   const begin = ev => {
     if (clicked) return;
     resize();
-    window.muteC.style.display = 'block';
+    //!/zen/.test(location.search)
+    if (location.search!=='?z') {
+      window.muteC.style.display = 'block';
+      window.R.style.display = 'block';
+    }
     window.W.style.display = 'none';
-    window.R.style.display = 'block';
     clicked = true;
     if (ev) ev.preventDefault();
     audio._MIN_resume();
@@ -92,7 +95,7 @@ function createApp () {
     if (scene) {
       context.save();
       context.scale(pixelRatio, pixelRatio);
-      scene.render(loop.elapsed, width, height);
+      scene._MIN_render(loop.elapsed, width, height);
       context.restore();
     }
   }
@@ -113,7 +116,7 @@ function createApp () {
   }
 
   function step (elapsed, dt) {
-    scene.step(elapsed, dt, width, height, mouse, isMouseDown);
+    scene._MIN_step(elapsed, dt, width, height, mouse, isMouseDown);
   }
 
   function touchmove (ev) {

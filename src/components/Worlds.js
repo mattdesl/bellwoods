@@ -35,25 +35,25 @@ export default function Worlds (initialId = STARTID) {
 
   const EXP = 1.53;
 
-  ranks.forEach((r, i) => {
-    console.log(~~Math.pow(i, EXP), r);
-  });
+  // ranks.forEach((r, i) => {
+  //   console.log(~~Math.pow(i, EXP), r);
+  // });
 
   const api = {
     current: null,
     exit: null,
-    portals: [],
-    butterflies: [],
+    _MIN_portals: [],
+    _MIN_butterflies: [],
     depth: 0,
     enter (portal) {
       const currentWorld = this.current;
       const newWorld = portal.world;
       this.current = newWorld;
-      this.portals = [];
+      this._MIN_portals = [];
       // newWorld.enter();
 
       if (portal.tail) {
-        this.portals = portal.world.portals || [];
+        this._MIN_portals = portal.world.portals || [];
       } else {
         worldsExplored[newWorld.id] = true;
 
@@ -77,16 +77,16 @@ export default function Worlds (initialId = STARTID) {
           portals.push({ tail: false, explored: false, world: otherWorld, offset: otherWorld.offset });
         });
         newWorld.portals = portals;
-        this.portals = portals;
+        this._MIN_portals = portals;
       }
 
       if (!portal.explored) discover();
 
       const explored = Object.keys(worldsExplored).length;
       this.explored = explored;
-      this.butterflies = this.portals.map(p => Butterfly());
+      this._MIN_butterflies = this._MIN_portals.map(p => Butterfly());
       this.depth = newWorld.depth;
-      this.portals.forEach(portal => {
+      this._MIN_portals.forEach(portal => {
         portal._updated = false;
         if (portal.world.id in worldsExplored) portal.explored = true;
       });
