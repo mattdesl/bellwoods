@@ -5,7 +5,7 @@ import Controller from './components/Controller';
 import Camera from './components/Camera';
 import Worlds from './components/Worlds';
 import { ease, clamp01 } from './math';
-import { array, vec3, noise } from './util';
+import { LINE_WIDTH_MOD, array, vec3, noise } from './util';
 
 // const staticChar = require('./char.json');
 
@@ -16,8 +16,8 @@ export default function (context, audio, save) {
   let currentFloweringWorld = worlds.current;
 
   const restyle = () => {
-    document.body.style.background = currentFloweringWorld.background;
-    document.body.style.color = currentFloweringWorld.user;
+    // document.body.style.background = currentFloweringWorld.background;
+    // document.body.style.color = currentFloweringWorld.user;
   };
 
   restyle();
@@ -43,6 +43,7 @@ export default function (context, audio, save) {
     } else if (ev.key === 'n') {
       console.log('next', worlds.next)
       worlds.next();
+      controller.spin();
       noise._MIN_reset(worlds.current.seed);
       terrain.reset(worlds.current.seed, worlds.current);
       currentFloweringWorld = worlds.current;
@@ -255,7 +256,7 @@ export default function (context, audio, save) {
     // painter.point(character.origin, 'green', 4);
 
     // Draw taps/hits
-    context.lineWidth = initialFade;
+    context.lineWidth = initialFade * LINE_WIDTH_MOD;
     context.globalAlpha = 0.5;
     for (let i = 0; i < tapPool.length; i++) {
       const p = tapPool[i];
@@ -287,7 +288,7 @@ export default function (context, audio, save) {
     // const projected = result.positions.map(p => camera.project(p.position));
     // const transitionValue = 1 - Math.sin(transitionTime / transitionDuration * Math.PI);
     const lineWidth = 1.5 * transitionValue;
-    context.lineWidth = lineWidth;
+    context.lineWidth = lineWidth * LINE_WIDTH_MOD;
     context.lineCap = 'round';
     const lineColor = currentFloweringWorld.lines;
     context.strokeStyle = lineColor;

@@ -74,16 +74,23 @@ function createApp () {
   window.addEventListener('mousemove', mousemove);
   window.addEventListener('touchmove', touchmove);
 
-  function fit (w = window.innerWidth, h = window.innerHeight) {
+  window.addEventListener('keydown', ev => {
+    if (ev.key === 's') {
+      ev.preventDefault();
+      save();
+    }
+  });
+  // 2480, 1748
+  function fit (w = 2480, h = 1748) {
     width = w;
     height = h;
     canvas.width = ~~(width * pixelRatio);
     canvas.height = ~~(height * pixelRatio);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+    // canvas.style.width = `${width}px`;
+    // canvas.style.height = `${height}px`;
   }
 
-  function resize (w = window.innerWidth, h = window.innerHeight) {
+  function resize (w = 2480 / 2, h = 1748 / 2) {
     fit(w, h);
     if (loop) render(loop.elapsed);
   }
@@ -153,7 +160,7 @@ function createApp () {
   function save () {
     const oldPixelRatio = pixelRatio;
     pixelRatio = 1;
-    resize(1280, 720);
+    resize(2480, 1748);
     step(loop.elapsed, 0.00001);
     render();
     const uri = canvas.toDataURL('image/png');
@@ -226,7 +233,7 @@ function createLoop (render, step, adaptive, fps = 60) {
     if (avgDeltaTime > avgDeltaInterval) {
       const avgDelta = avgDeltaSum / avgDeltaCount;
       avgDeltaTime = avgDeltaCount = avgDeltaSum = 0;
-      adaptive(avgDelta);
+      // adaptive(avgDelta);
     }
 
     loop.elapsed += realDelta;

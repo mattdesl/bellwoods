@@ -7,6 +7,10 @@ var tmp4 = [0, 0, 0, 0];
 
 var v0 = [0, 0, 0];
 
+const fmod = 2480 / 1460;
+export const LINE_WIDTH_MOD = fmod * 3;
+export const CIRCLE_RADIUS_MOD = fmod * 3;
+
 export function array (n, initial) {
   var out = [];
   for (let i = 0; i < n; i++) {

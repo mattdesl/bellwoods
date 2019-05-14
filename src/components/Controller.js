@@ -14,7 +14,7 @@ export default function Controller (camera, terrain) {
   const worldPosition = position.slice();
 
   const offestYSpeed = 0.5;
-  const startAngle = Math.PI * 2 + 10 * Math.PI / 180;
+  let startAngle = Math.random() * Math.PI * 2;
 
   let spin = 0;
   let yDist = 0;
@@ -39,6 +39,9 @@ export default function Controller (camera, terrain) {
     speed: 0,
     worldPosition,
     mouseOnPlane,
+    spin () {
+      startAngle = Math.random() * Math.PI * 2;
+    },
     step (width, height, elapsed, dt, mouse, mouseDown) {
       hit = getMouseHit(mouse, camera.target, mouseOnPlane);
       terrain._MIN_clampToEdge(mouseOnPlane);
@@ -60,14 +63,15 @@ export default function Controller (camera, terrain) {
       //   // console.warn('what??');
       // }
 
-      speedMod = damp(speedMod, newSpeedMod, 3, dt);
+      const DAMPMOD = 200;
+      speedMod = damp(speedMod, newSpeedMod, 3 * DAMPMOD, dt);
 
       // Smoothly turn direction toward new angle
-      dampArray(direction, nextDirection, 10, dt, direction);
+      dampArray(direction, nextDirection, 10 * DAMPMOD, dt, direction);
 
       // We swing the eye around a bit from the target
       // This is slower than turning
-      dampArray(eyeDirection, nextDirection, 0.001, dt, eyeDirection);
+      dampArray(eyeDirection, nextDirection, 0.001 * DAMPMOD, dt, eyeDirection);
 
       const frameFactor = dt * deltaFactor;
 
@@ -100,19 +104,19 @@ export default function Controller (camera, terrain) {
 
       // Smoothly move toward new world position based on origin
       position[0] = worldPosition[0];
-      position[1] = damp(position[1], worldPosition[1], offestYSpeed, dt);
+      position[1] = damp(position[1], worldPosition[1], offestYSpeed * DAMPMOD, dt);
       position[2] = worldPosition[2];
       terrain._MIN_clampToEdge(position);
 
       // camera.target === controller.position
       vec3.copy(camera.target, position);
-      camera.target[1] += -0.25;
+      camera.target[1] += -0.3;
 
       // Rotate a bit based on mouse X position
-      spin = damp(spin, (mouse[0] / width * 2 - 1), 1, dt);
+      // spin = damp(spin, (mouse[0] / width * 2 - 1), 1, dt);
 
       // Mouse Y adjusts world Y offset a little
-      yDist = damp(yDist, ((mouse[1] / height)) * 0.15, 1, dt);
+      // yDist = damp(yDist, ((mouse[1] / height)) * 0.15, 1, dt);
 
       // Calculate a rough "speed" of our camera controller
       const velLength = vec3.length(velocity);
@@ -131,8 +135,9 @@ export default function Controller (camera, terrain) {
         orbitZoom = orbitZoom / Math.min(1.075, aspect / 1.5);
         // orbitZoom *= (aspect / 1);
       }
-      const orbitDistance = (2.5 + -0.75 * this.speed) * orbitZoom;
-      const orbitHeight = 1 + 4 * yDist;
+      const ORBIT_MOD = 0.85;
+      const orbitDistance = ((2.5 + -0.75 * this.speed) * orbitZoom) * ORBIT_MOD;
+      const orbitHeight = (1 + 4 * yDist);
 
       // Offset the eye each frame based on the position of the controller
       camera.eye[0] = position[0] + Math.cos(orbitAngle) * orbitDistance;

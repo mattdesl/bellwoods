@@ -21,7 +21,7 @@ html, body, main, #W {
 
 body {
   margin: 0px;
-  background: #e29990;
+  background: #fff;
   color: #fff;
   font-size: 16px;
   -webkit-text-size-adjust:100%;
@@ -35,6 +35,8 @@ canvas, main {
   position: absolute;
   left: 0;
   top: 0;
+  width: 100%;
+  height: auto;
 }
 
 main {

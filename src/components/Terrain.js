@@ -214,7 +214,7 @@ export default function Terrain (camera, audio) {
           let distSq = (dx * dx + dy * dy + dz * dz);
           let dist;
 
-          const touchTile = findCached(touchedPool, tileIndex);
+          const touchTile = null;//findCached(touchedPool, tileIndex);
           const isHit = distSq <= touchThresholdSq;
           const isCloseHit = isHit;
           if (isCloseHit && distSq < closestDistSq) {

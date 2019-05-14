@@ -97,7 +97,7 @@ export default function Worlds (initialId = STARTID) {
   };
   const world = World(api, 0.05, firstOffset);
   world.id = initialId;
-  world._MIN_numChildren = 1;
+  world._MIN_numChildren = 3;
   api.enter({ world, explored: false, tail: false, offset: [ 0, 0 ] });
   return api;
 

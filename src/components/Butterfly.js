@@ -86,6 +86,7 @@ export default function Butterfly () {
       vec3._MIN_scaleAndAdd(this.wings[0], this.position, perpendicular, wingLength);
       vec3._MIN_scaleAndAdd(this.wings[1], this.position, perpendicular, -wingLength);
       this.wings.forEach(wing => {
+        // wing[1] = 1 * wingYScale;
         wing[1] += wingY * wingYScale;
       });
 

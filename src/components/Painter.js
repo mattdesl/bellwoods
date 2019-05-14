@@ -1,4 +1,4 @@
-import { perp, vec3, array } from '../util';
+import { CIRCLE_RADIUS_MOD, LINE_WIDTH_MOD, perp, vec3, array } from '../util';
 import { clamp01, ease } from '../math';
 
 export default function Painter (context, camera, worlds) {
@@ -7,9 +7,9 @@ export default function Painter (context, camera, worlds) {
   var tmps = array(6).map(() => ([]));
   var bpath = [];
 
-  const _MIN_circle = (p, r) => {
+  const _MIN_circle = (p, r, isMod = true) => {
     context.beginPath();
-    context.arc(p[0], p[1], r, 0, Math.PI * 2);
+    context.arc(p[0], p[1], r * (isMod ? CIRCLE_RADIUS_MOD : 1), 0, Math.PI * 2);
   };
 
   return {
@@ -33,7 +33,7 @@ export default function Painter (context, camera, worlds) {
       context.lineJoin = 'miter';
       context.lineCap = 'square';
       context.strokeStyle = worlds.flowering.user;
-      context.lineWidth = 2;
+      context.lineWidth = 2 * LINE_WIDTH_MOD;
       context.globalAlpha = 1;
       context.stroke();
     },
@@ -56,16 +56,16 @@ export default function Painter (context, camera, worlds) {
       const a = camera.project(xyzPosition, tmpScreen);
       const stroke = 2;
 
-      _MIN_circle(a, radius);
+      _MIN_circle(a, radius, false);
       context.globalAlpha = 1;
       context.fillStyle = color;
       context.fill();
       context.strokeStyle = worlds.flowering.user;
-      context.lineWidth = stroke;
+      context.lineWidth = stroke * LINE_WIDTH_MOD;
       context.stroke();
 
       if (!explored) {
-        _MIN_circle(a, radius * 2);
+        _MIN_circle(a, radius * 2, false);
         context.globalAlpha = 0.25;
         context.stroke();
       }
@@ -86,7 +86,7 @@ export default function Painter (context, camera, worlds) {
       const path = [ a, d, b, c ].map((p, i) => camera.project(p, tmps[i]));
 
       context.strokeStyle = color;
-      context.lineWidth = 1 * lineThickness;
+      context.lineWidth = 1 * lineThickness * LINE_WIDTH_MOD;
       context.lineJoin = context.lineCap = 'round';
       context.globalAlpha = 1;
       context.beginPath();
@@ -109,7 +109,7 @@ export default function Painter (context, camera, worlds) {
       context.lineTo(R[0], R[1]);
       context.stroke();
 
-      context.lineWidth = 2 * lineThickness;
+      context.lineWidth = 2 * lineThickness * LINE_WIDTH_MOD;
       context.beginPath();
       path.forEach(p => context.lineTo(p[0], p[1]));
       context.closePath();
