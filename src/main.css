@@ -95,6 +95,17 @@ h1 {
   /* border: 1px solid white; */
   position: relative;
 }
+
+#C0, #C0:visited {
+  letter-spacing: 1px;
+  font-size: 11px;
+  padding: 10px 20px;
+  position: relative;
+  display: inline-block;
+  color: currentColor;
+  text-decoration: none;
+}
+
 #S:after {
   position: absolute;
   width: calc(100% - 36px);

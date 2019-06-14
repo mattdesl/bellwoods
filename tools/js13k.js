@@ -92,7 +92,7 @@ async function doZip (code) {
   try {
     await writeFile(path.resolve(__dirname, '../public/bundle.js'), result);
     const zip = `app.zip`;
-    await execa.shell(`zip -9 -q -r ${zip} public/ -x *.png`);
+    await execa.shell(`zip -9 -q -r ${zip} public/ -x *.png -x about.html`);
     if (advzip) await execa.shell(`advzip -z4 --iter=2 ${zip}`);
     const { size } = await stat(zip);
     console.log(`Minified JS: ${prettyBytes(result.length)} - ${result.length}`);
