@@ -63,6 +63,7 @@
     "deploy": "surge -p public/ -d fields.surge.sh",
     "build": "node tools/js13k --build",
     "zip": "node tools/js13k --build --zip",
+    "zip-final": "node tools/js13k --build --zip --final",
     "test": "rollup rollup --watch --config rollup.config.js src/index-es6.js",
     "start": "node tools/js13k"
   },

@@ -104,6 +104,7 @@ h1 {
   display: inline-block;
   color: currentColor;
   text-decoration: none;
+  font-weight: 100;
 }
 
 #S:after {

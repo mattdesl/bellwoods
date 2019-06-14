@@ -19,6 +19,7 @@ const browserify = require('browserify');
 
 const isBuild = process.argv.slice(2).includes('--build');
 const isZIP = process.argv.slice(2).includes('--zip');
+const isFinal = process.argv.slice(2).includes('--final');
 let code = '';
 
 // If you have this installed...
@@ -92,7 +93,13 @@ async function doZip (code) {
   try {
     await writeFile(path.resolve(__dirname, '../public/bundle.js'), result);
     const zip = `app.zip`;
-    await execa.shell(`zip -9 -q -r ${zip} public/ -x *.png -x about.html`);
+    await rimraf(zip);
+    const excludes = (isFinal ? [] : [
+      'public/about.html',
+      'public/about.css',
+      '*.png'
+    ].filter(Boolean)).map(x => `-x ${x}`).join(' ');
+    await execa.shell(`zip -9 -q -r ${zip} public/ ${excludes}`);
     if (advzip) await execa.shell(`advzip -z4 --iter=2 ${zip}`);
     const { size } = await stat(zip);
     console.log(`Minified JS: ${prettyBytes(result.length)} - ${result.length}`);
