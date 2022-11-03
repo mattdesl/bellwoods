@@ -54,7 +54,7 @@
     "rollup": "^0.65.0",
     "rollup-plugin-memory": "^3.0.0",
     "rollup-plugin-serve": "^0.4.2",
-    "surge": "^0.20.1",
+    "surge": "^0.20.5",
     "terser": "^3.8.1",
     "through2": "^2.0.3",
     "tinyify": "^2.4.3"
